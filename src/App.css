@@ -1,0 +1,16 @@
+.wrapper {
+  width: 500px;
+  height: 500px;
+}
+
+.header {
+  background-color: white;
+  color: black;
+  font-size: large;
+  text-align: center;
+}
+
+.content {
+  color: black;
+  text-align: center;
+}
