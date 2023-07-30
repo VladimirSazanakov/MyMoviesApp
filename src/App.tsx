@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, Space, Layout } from 'antd';
 import { Col, Row } from 'antd';
 import './App.css'
-import { Content, Header } from 'antd/es/layout/layout';
+import { Content, Footer, Header } from 'antd/es/layout/layout';
 import MovieCard from './components/MovieCard';
 
 function App() {
@@ -15,8 +15,22 @@ function App() {
       <div>
         <Layout className='wrapper'>
           <Header className='header'>Test</Header>
-          <Content className='content'>test content</Content>
-          <MovieCard />
+          <Content className='content'>test content
+            <Row gutter={[24, 24]} align={'center'} justify={'space-evenly'} wrap={true} >
+              <Col span={12}> <Space><MovieCard /></Space> </Col>
+              <Col span={12}> <Space><MovieCard /></Space></Col>
+
+              <Col span={12}><Space><MovieCard /></Space> </Col>
+              <Col span={12}> <Space><MovieCard /></Space></Col>
+
+              <Col span={12}> <Space><MovieCard /></Space> </Col>
+              <Col span={12}></Col>
+
+            </Row>
+
+
+          </Content>
+          <Footer className='footer'>footer</Footer>
         </Layout>
         {/* <Space direction='vertical'>
           <Header> Header</Header>
@@ -39,7 +53,7 @@ function App() {
           </Content>
           <Footer>Footer</Footer>
         </Space> */}
-      </div>
+      </div >
     </>
   )
 }

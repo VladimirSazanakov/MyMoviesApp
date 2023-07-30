@@ -1,3 +1,8 @@
 .movie-card {
-  color: black;
+  width: 451px;
+  height: 279px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-size: 12px;
+  text-align: start;
 }
