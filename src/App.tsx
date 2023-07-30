@@ -15,8 +15,8 @@ function App() {
       <div>
         <Layout className='wrapper'>
           <Header className='header'>Test</Header>
-          <Content className='content'>test content
-            <Row gutter={[24, 24]} align={'center'} justify={'space-evenly'} wrap={true} >
+          <Content className='content'>
+            <Row gutter={[36, 36]} align={'middle'} justify={'space-evenly'} wrap={true} >
               <Col span={12}> <Space><MovieCard /></Space> </Col>
               <Col span={12}> <Space><MovieCard /></Space></Col>
 
