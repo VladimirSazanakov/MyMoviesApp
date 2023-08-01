@@ -9,11 +9,11 @@ export default class MovieApi {
     }
   };
 
-  async getResounse(url : string){
-    console.log(`${this._apiBase}${url}`);
+  async getResounse(url: string) {
+    // console.log(`${this._apiBase}${url}`);
     const res = await fetch(`${this._apiBase}${url}`, this.options)
 
-    if(!res.ok){
+    if (!res.ok) {
       throw new Error(`Error to get monies api ${url}`)
     }
     return res.json()

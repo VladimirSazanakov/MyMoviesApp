@@ -3,21 +3,27 @@ import React from "react";
 import './MovieCard.css';
 import { Button, Card, Image, Layout, Space, Typography } from "antd";
 
-const { Text, Title } = Typography;
+import TextShortener from "../../servise/TextShortener";
 
-export default function MovieCard() {
+const { Text, Title } = Typography;
+const imagePath = 'https://image.tmdb.org/t/p/original';
+
+export default function MovieCard({ movie }: any) {
+
+  const { id, title, release_date, poster_path, overview } = movie;
+
   return (
     <Card size="small" className="movie-card">
       <Space align="start">
-        <Image width={200} src="../test/Rectangle 36.jpg" />
+        <Image width={200} src={`${imagePath}${poster_path}`} />
         <Space direction="vertical" align="start" size={2}>
-          <Title level={4} style={{ margin: 0 }}>Title</Title>
-          <Text type="secondary">date</Text>
+          <Title level={4} style={{ margin: 0 }}>{title}</Title>
+          <Text type="secondary">{release_date}</Text>
           <Space>
             <Button size="small">Action</Button>
             <Button size="small">Drama</Button>
           </Space>
-          <Text type='secondary'>Deccription Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatibus eaque facilis ut eum, officia voluptate laudantium quo animi amet cumque, harum ullam nihil earum unde ducimus hic incidunt saepe.</Text>
+          <Text type='secondary'>{TextShortener(overview)}</Text>
         </Space>
       </Space>
     </Card>
