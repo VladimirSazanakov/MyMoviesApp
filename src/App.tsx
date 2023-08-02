@@ -11,6 +11,7 @@ import MovieList from './components/MovieList';
 
 import TextShortener from './servise/TextShortener';
 import ErrorIndicator from './components/ErrorIndicator';
+import HeaderTabs from './components/HeaderTabs';
 
 
 
@@ -105,7 +106,9 @@ vote_count: 1512
 
   return (
     <Layout className='wrapper'>
-      <Header className='header'>Test</Header>
+      <Header className='header'>
+        <HeaderTabs />
+      </Header>
       <Content className='content'>
 
         {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
