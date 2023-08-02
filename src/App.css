@@ -23,3 +23,8 @@
   align-items: center;
   text-align: center;
 }
+
+.ant-spin {
+  margin-top: 200px;
+  top: 500px;
+}

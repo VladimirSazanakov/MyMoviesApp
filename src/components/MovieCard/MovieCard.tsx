@@ -15,7 +15,7 @@ export default function MovieCard({ movie }: any) {
   return (
     <Card size="small" className="movie-card">
       <Space align="start">
-        <Image width={200} src={`${imagePath}${poster_path}`} />
+        <Image width={200} src={`${imagePath}${poster_path}`} alt="Poster" />
         <Space direction="vertical" align="start" size={2}>
           <Title level={4} style={{ margin: 0 }}>{title}</Title>
           <Text type="secondary">{release_date}</Text>
