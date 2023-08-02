@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Button, Space, Layout } from 'antd';
+import { Button, Space, Layout, Spin } from 'antd';
 
 import './App.css'
 
@@ -10,6 +10,7 @@ import MovieList from './components/MovieList';
 
 
 import TextShortener from './servise/TextShortener';
+import ErrorIndicator from './components/ErrorIndicator';
 
 
 
@@ -19,6 +20,8 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [moviesToList, setMoviesToList] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const movieApi = new MovieApi;
 
@@ -28,6 +31,10 @@ function App() {
     movieApi.getAllMovies(query)
       .then(res => {
         setMovies(res);
+        setLoading(false);
+      })
+      .catch((error) => {
+        onError(error);
       })
     //console.log(movies);
   }
@@ -39,8 +46,15 @@ function App() {
     //console.log('movies to list', newMoviesArr);
   }
 
+  function onError(err: Error) {
+    console.log('Error Loading', err);
+    if (err)
+      setError(true);
+    setLoading(false);
+  }
+
   useEffect(() => {
-    getMovies('space');
+    getMovies('cosmic');
     movieToMovieList();
   }, [])
 
@@ -88,18 +102,14 @@ vote_count: 1512
 */
 
   //console.log(movies);
-  const testText = "A short featuring John John Florence, titled “Space.” Shot on location between Western Australia and Hawaii.  Presented by Parallel Sea\r Surfing by John John Florence  Cinematography by Erik Knutson\r Edited by Blake Vincent Kueny\r Produced by Spencer Klein\r Water Phantom Cinematography by Chris Bryan\r Additional Cinematography by Jack Germain + Matt Catalano\r Art Direction by Donny Stevens\r Sound Design & Mix by Keith White  Music: “Rejoice\r Steve Angello Feat. T.D Jakes\r Written by Steve Angello, T.D Jakes\r Produced by Steve Angello\r Vocals by T.D Jakes\r Size Records LTD under exclusive license to AWAL Recordings by Steve Angello feat T.D. Jakes\r “Rejoice”\r Exclusively licensed to Kobalt Music Recordings  Special Thanks to Pete Johnson, Andy Bark, Bob Hurley, Pat O’Connell, Evan Slater, Jamin Jannard'";
-
-
-  console.log(TextShortener(testText))
 
   return (
     <Layout className='wrapper'>
       <Header className='header'>Test</Header>
       <Content className='content'>
 
-        <MovieList movies={moviesToList} />
-
+        {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
+        {error ? <ErrorIndicator /> : null}
       </Content>
       <Footer className='footer'>footer</Footer>
     </Layout>

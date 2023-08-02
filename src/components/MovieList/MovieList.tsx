@@ -11,6 +11,7 @@ export default function MovieList(props: any) {
   //console.log(props.movies);
 
   const [movies, setMovies] = useState(props.movies);
+
   useEffect(() => {
     setMovies(props.movies)
   }, [props]);
