@@ -5,4 +5,9 @@
   overflow: hidden;
   font-size: 12px;
   text-align: start;
+  padding: 0;
+}
+
+.ant-card-body {
+  padding: 0;
 }

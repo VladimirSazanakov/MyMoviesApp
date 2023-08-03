@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Button, Space, Layout, Spin } from 'antd';
+import { Button, Space, Layout, Spin, Pagination } from 'antd';
 
 import './App.css'
 
@@ -16,11 +16,12 @@ import HeaderTabs from './components/HeaderTabs';
 
 
 function App() {
-  const cardOnPage = 6;
+  const cardOnPage = 20;
   const [count, setCount] = useState(0)
   const [movies, setMovies] = useState([]);
   const [moviesToList, setMoviesToList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(8);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -31,8 +32,10 @@ function App() {
   function getMovies(query: string) {
     movieApi.getAllMovies(query)
       .then(res => {
-        setMovies(res);
+        setMovies(res.results);
         setLoading(false);
+        console.log(res.total_pages)
+        setTotalPages(res.total_pages * 10);
       })
       .catch((error) => {
         onError(error);
@@ -41,7 +44,7 @@ function App() {
   }
 
   function movieToMovieList() {
-    const startPosition = cardOnPage * (page - 1);
+    const startPosition = cardOnPage * (currentPage - 1);
     const newMoviesArr = movies.slice(startPosition, startPosition + cardOnPage);
     setMoviesToList(newMoviesArr);
     //console.log('movies to list', newMoviesArr);
@@ -54,14 +57,19 @@ function App() {
     setLoading(false);
   }
 
+  function onChangePagination(page: number) {
+    console.log('current page', page);
+    setCurrentPage(page);
+  }
+
   useEffect(() => {
-    getMovies('cosmic');
+    getMovies('computer');
     movieToMovieList();
   }, [])
 
   useEffect(() => {
     movieToMovieList();
-  }, [page]);
+  }, [currentPage]);
 
   useEffect(() => {
     movieToMovieList();
@@ -114,7 +122,10 @@ vote_count: 1512
         {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
         {error ? <ErrorIndicator /> : null}
       </Content>
-      <Footer className='footer'>footer</Footer>
+      <Footer className='footer'>
+        <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
+          showSizeChanger={false} />
+      </Footer>
     </Layout>
     /* <Space direction='vertical'>
       <Header> Header</Header>

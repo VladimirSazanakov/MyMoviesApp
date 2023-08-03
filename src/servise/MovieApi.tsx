@@ -11,17 +11,21 @@ export default class MovieApi {
 
   async getResounse(url: string) {
     // console.log(`${this._apiBase}${url}`);
-    const res = await fetch(`${this._apiBase}${url}`, this.options)
+    const res = await fetch(`${this._apiBase}${url}`, this.options);
+    console.log(res.status);
+    // console.log(res.json());
 
     if (!res.ok) {
       throw new Error(`Error to get monies api ${url}`)
     }
+
     return res.json()
   }
 
   async getAllMovies(params: string) {
     const res = await this.getResounse(`?query=${params}`);
-    return res.results;
+    // console.log(res.results);
+    return res;
   }
   /*
   fetch('https://api.themoviedb.org/3/search/movie?query=return', options)
