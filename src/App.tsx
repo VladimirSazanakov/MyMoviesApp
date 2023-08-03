@@ -24,16 +24,18 @@ function App() {
   const [totalPages, setTotalPages] = useState(8);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   const movieApi = new MovieApi;
 
   //const { Header, Footer, Sider, Content } = Layout;
 
   function getMovies(query: string) {
-    movieApi.getAllMovies(query)
+    movieApi.getAllMovies(query, currentPage)
       .then(res => {
         setMovies(res.results);
         setLoading(false);
+        setError(false);
         console.log(res.total_pages)
         setTotalPages(res.total_pages * 10);
       })
@@ -44,9 +46,10 @@ function App() {
   }
 
   function movieToMovieList() {
-    const startPosition = cardOnPage * (currentPage - 1);
-    const newMoviesArr = movies.slice(startPosition, startPosition + cardOnPage);
-    setMoviesToList(newMoviesArr);
+    // const startPosition = cardOnPage * (currentPage - 1);
+    // const newMoviesArr = movies.slice(startPosition, startPosition + cardOnPage);
+    // setMoviesToList(newMoviesArr);
+    setMoviesToList(movies);
     //console.log('movies to list', newMoviesArr);
   }
 
@@ -60,12 +63,26 @@ function App() {
   function onChangePagination(page: number) {
     console.log('current page', page);
     setCurrentPage(page);
+    getMovies(searchValue);
+    setLoading(true);
+  }
+
+  function onChangeInput(value: string) {
+    console.log('InputValue', value);
+    setSearchValue(value);
   }
 
   useEffect(() => {
-    getMovies('computer');
-    movieToMovieList();
-  }, [])
+    setCurrentPage(1);
+    getMovies(searchValue);
+    setLoading(true);
+  }, [searchValue])
+
+
+  // useEffect(() => {
+  //   getMovies(searchValue);
+  //   movieToMovieList();
+  // }, [])
 
   useEffect(() => {
     movieToMovieList();
@@ -115,7 +132,7 @@ vote_count: 1512
   return (
     <Layout className='wrapper'>
       <Header className='header'>
-        <HeaderTabs />
+        <HeaderTabs onChangeInput={onChangeInput} />
       </Header>
       <Content className='content'>
 

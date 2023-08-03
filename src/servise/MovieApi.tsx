@@ -22,8 +22,8 @@ export default class MovieApi {
     return res.json()
   }
 
-  async getAllMovies(params: string) {
-    const res = await this.getResounse(`?query=${params}`);
+  async getAllMovies(params: string, page: number) {
+    const res = await this.getResounse(`?query=${params}&page=${page}`);
     // console.log(res.results);
     return res;
   }
