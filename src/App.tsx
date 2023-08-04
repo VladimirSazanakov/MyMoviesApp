@@ -25,6 +25,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [guestSession, setGuestSession] = useState('');
 
   const movieApi = new MovieApi;
 
@@ -71,6 +72,14 @@ function App() {
     console.log('InputValue', value);
     setSearchValue(value);
   }
+
+  useEffect(()=>{
+    const guest = movieApi.createGuestSession();
+    guest.then(response =>{ 
+      console.log('Guest session id = ', response.guest_session_id)
+      setGuestSession(response.guest_session_id)});
+
+  },[])
 
   useEffect(() => {
     setCurrentPage(1);
