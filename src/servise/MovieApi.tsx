@@ -27,6 +27,27 @@ export default class MovieApi {
     // console.log(res.results);
     return res;
   }
+
+  async createGuestSession (){
+    const res = await fetch('https://api.themoviedb.org/3/authentication/guest_session/new', this.options);
+
+      return res.json();
+  }
+  /*
+  const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyODAyOGU0ZThlMzk3MzA1YTVlOGY4Zjc3NzA3ZTYzZSIsInN1YiI6IjY0YzdkYzcyZWVjNWI1NThmMDNiZjM2MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1ZUQtYugyYmsM3ZBrpygsZw10HaStCmJXuyboy2aV04'
+  }
+};
+
+fetch('https://api.themoviedb.org/3/authentication/guest_session/new', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+  */
+
   /*
   fetch('https://api.themoviedb.org/3/search/movie?query=return', options)
     .then(response => response.json())
