@@ -7,7 +7,7 @@ import ErrorIndicator from "../ErrorIndicator";
 import MovieList from "../MovieList";
 import MovieApi from "../../servise/MovieApi";
 
-export default function RatePage() {
+export default function RatePage(props: any) {
 
   const cardOnPage = 20;
   const [movies, setMovies] = useState([]);
@@ -20,14 +20,33 @@ export default function RatePage() {
 
   const movieApi = new MovieApi;
 
-  function getMovies(query: string) {
-    movieApi.getAllMovies(query, currentPage)
+  function getRatedMovies() {
+    movieApi.getRatedMovies(props.guest_id, currentPage)
+      .then(res => {
+        // setMovies(res.results);
+        // setLoading(false);
+        // setError(false);
+        // console.log(res.total_pages)
+        // setTotalPages(res.total_pages * 10);
+        console.log(res);
+        console.log(props.guest_id);
+      })
+      .catch((error) => {
+        onError(error);
+      })
+    //console.log(movies);
+  }
+
+  function getRatedMoviesAccount() {
+    movieApi.getRatedMoviesAccount(currentPage)
       .then(res => {
         setMovies(res.results);
         setLoading(false);
         setError(false);
         console.log(res.total_pages)
         setTotalPages(res.total_pages * 10);
+        console.log(res);
+        console.log(props.guest_id);
       })
       .catch((error) => {
         onError(error);
@@ -53,7 +72,7 @@ export default function RatePage() {
   function onChangePagination(page: number) {
     console.log('current page', page);
     setCurrentPage(page);
-    getMovies(searchValue);
+    getRatedMovies();
     setLoading(true);
   }
 
@@ -66,7 +85,7 @@ export default function RatePage() {
   }, [movies]);
 
   useEffect(() => {
-    getMovies(searchValue);
+    getRatedMoviesAccount();
   }, [])
 
   return (

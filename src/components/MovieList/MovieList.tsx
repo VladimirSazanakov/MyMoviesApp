@@ -19,7 +19,7 @@ export default function MovieList(props: any) {
   // console.log("movies in movie list", props.movies);
 
   const list = movies.map((el: any) => {
-    return <Col span={12}><Space><MovieCard movie={el} /> </Space></Col>
+    return <Col key={el.id} span={12}><Space><MovieCard movie={el} onChangeRate={(rateValue: number) => props.onChangeRate(el.id, rateValue)} /> </Space></Col>
     //console.log(el);
   })
 

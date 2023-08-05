@@ -19,30 +19,36 @@ export default function App2(props: any) {
   const [guestSession, setGuestSession] = useState('');
 
   useEffect(() => {
-    const guest = movieApi.createGuestSession();
-    guest.then(response => {
-      console.log('Guest session id = ', response.guest_session_id)
-      setGuestSession(response.guest_session_id)
-    });
+    //const guest = movieApi.createGuestSession();
+    //guest.then(response => {
+    //console.log('Guest session id = ', response.guest_session_id)
+    //setGuestSession(response.guest_session_id)
+    //});
+    setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
 
   }, []);
 
-  function onchange(key: string) {
+  function onchangeTab(key: string) {
     console.log(key)
     setCurrentTab(key);
+  }
+
+  function onChangeRate(id: number, rateValue: number) {
+    console.log('ChangeRate', id, ' rate ', rateValue);
+    movieApi.addRating(id, guestSession, rateValue).then(res => console.log(res));
   }
 
   const items: TabsProps['items'] = [
     {
       key: 'Search',
       label: 'Search',
-      children: <SearchPage />
+      children: <SearchPage onChangeRate={onChangeRate} />
 
     },
     {
       key: 'Rated',
       label: 'Rated',
-      children: <RatePage />
+      children: <RatePage guest_id={guestSession} onChangeRate={onChangeRate} />
 
     },
   ]
@@ -53,7 +59,7 @@ export default function App2(props: any) {
 
       <Content className='content'>
         <Space direction="vertical" align="center">
-          <Tabs defaultActiveKey="Search" items={items} onChange={onchange} />
+          <Tabs defaultActiveKey="Search" items={items} onChange={onchangeTab} destroyInactiveTabPane />
         </Space>
       </Content>
     </Layout>

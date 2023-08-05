@@ -1,5 +1,5 @@
 export default function TextShortener(text: string) {
-  const maxLength = 260;
+  const maxLength = 100;
   let length = 0;
   const textShort = text.replace(/(\r\n|\n|\r)/gm, '')
     .trim()

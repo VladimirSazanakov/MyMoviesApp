@@ -8,7 +8,7 @@ import ErrorIndicator from "../ErrorIndicator";
 import MovieList from "../MovieList";
 import SearchInput from "../SearchInput";
 
-export default function SearchPage() {
+export default function SearchPage(props: any) {
 
   const cardOnPage = 20;
   const [count, setCount] = useState(0)
@@ -91,7 +91,7 @@ export default function SearchPage() {
     <Space direction="vertical" align="center">
       <SearchInput onChangeInput={onChangeInput} />
       {error ? <ErrorIndicator /> : null}
-      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
+      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} onChangeRate={props.onChangeRate} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
         showSizeChanger={false} />
     </Space>
