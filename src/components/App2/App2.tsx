@@ -19,12 +19,12 @@ export default function App2(props: any) {
   const [guestSession, setGuestSession] = useState('');
 
   useEffect(() => {
-    //const guest = movieApi.createGuestSession();
-    //guest.then(response => {
-    //console.log('Guest session id = ', response.guest_session_id)
-    //setGuestSession(response.guest_session_id)
-    //});
-    setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
+    const guest = movieApi.createGuestSession();
+    guest.then(response => {
+      console.log('Guest session id = ', response.guest_session_id)
+      setGuestSession(response.guest_session_id)
+    });
+    // setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
 
   }, []);
 

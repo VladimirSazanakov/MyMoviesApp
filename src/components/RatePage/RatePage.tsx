@@ -23,11 +23,11 @@ export default function RatePage(props: any) {
   function getRatedMovies() {
     movieApi.getRatedMovies(props.guest_id, currentPage)
       .then(res => {
-        // setMovies(res.results);
-        // setLoading(false);
-        // setError(false);
-        // console.log(res.total_pages)
-        // setTotalPages(res.total_pages * 10);
+        setMovies(res.results);
+        setLoading(false);
+        setError(false);
+        console.log(res.total_pages)
+        setTotalPages(res.total_pages * 10);
         console.log(res);
         console.log(props.guest_id);
       })
@@ -85,7 +85,8 @@ export default function RatePage(props: any) {
   }, [movies]);
 
   useEffect(() => {
-    getRatedMoviesAccount();
+    // getRatedMoviesAccount();
+    getRatedMovies();
   }, [])
 
   return (
