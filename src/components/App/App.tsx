@@ -14,6 +14,7 @@ import './App.css'
 
 
 export default function App() {
+
   const cardOnPage = 20;
   const [count, setCount] = useState(0)
   const [movies, setMovies] = useState([]);

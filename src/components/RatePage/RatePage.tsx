@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-import MovieApi from "../../servise/MovieApi";
+import './RatePage.css';
 
-import './SearchPage.css';
 import { Pagination, Space, Spin } from "antd";
 import ErrorIndicator from "../ErrorIndicator";
 import MovieList from "../MovieList";
-import SearchInput from "../SearchInput";
+import MovieApi from "../../servise/MovieApi";
 
-export default function SearchPage() {
+export default function RatePage() {
 
   const cardOnPage = 20;
-  const [count, setCount] = useState(0)
   const [movies, setMovies] = useState([]);
   const [moviesToList, setMoviesToList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(8);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
-
+  const [searchValue, setSearchValue] = useState('test');
 
   const movieApi = new MovieApi;
 
@@ -60,25 +57,6 @@ export default function SearchPage() {
     setLoading(true);
   }
 
-  function onChangeInput(value: string) {
-    console.log('InputValue', value);
-    setSearchValue(value);
-  }
-
-
-
-  useEffect(() => {
-    setCurrentPage(1);
-    getMovies(searchValue);
-    setLoading(true);
-  }, [searchValue])
-
-
-  // useEffect(() => {
-  //   getMovies(searchValue);
-  //   movieToMovieList();
-  // }, [])
-
   useEffect(() => {
     movieToMovieList();
   }, [currentPage]);
@@ -87,9 +65,12 @@ export default function SearchPage() {
     movieToMovieList();
   }, [movies]);
 
+  useEffect(() => {
+    getMovies(searchValue);
+  }, [])
+
   return (
     <Space direction="vertical" align="center">
-      <SearchInput onChangeInput={onChangeInput} />
       {error ? <ErrorIndicator /> : null}
       {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
