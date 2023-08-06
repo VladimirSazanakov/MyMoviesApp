@@ -6,6 +6,7 @@ import { Button, Space, Layout, Spin, Pagination } from 'antd';
 import './App2.css';
 import { Tabs, TabsProps } from "antd";
 import SearchInput from "../SearchInput";
+import { App2Provider } from "../App2Context";
 
 import SearchPage from "../SearchPage";
 import RatePage from "../RatePage";
@@ -17,6 +18,7 @@ export default function App2(props: any) {
 
   const [currentTab, setCurrentTab] = useState('Search');
   const [guestSession, setGuestSession] = useState('');
+  const [moviesGenres, setMoviesGenres] = useState([]);
 
   useEffect(() => {
     const guest = movieApi.createGuestSession();
@@ -24,6 +26,11 @@ export default function App2(props: any) {
       console.log('Guest session id = ', response.guest_session_id)
       setGuestSession(response.guest_session_id)
     });
+    movieApi.getMoviesGenres().then(response => {
+      //console.log(response);
+      setMoviesGenres(response.genres);
+      console.log(moviesGenres);
+    })
     // setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
 
   }, []);
@@ -55,14 +62,17 @@ export default function App2(props: any) {
 
   return (
 
-    <Layout className='wrapper'>
+    <App2Provider value={moviesGenres}>
 
-      <Content className='content'>
-        <Space direction="vertical" align="center">
-          <Tabs defaultActiveKey="Search" items={items} onChange={onchangeTab} destroyInactiveTabPane />
-        </Space>
-      </Content>
-    </Layout>
+      <Layout className='wrapper'>
+
+        <Content className='content'>
+          <Space direction="vertical" align="center">
+            <Tabs defaultActiveKey="Search" items={items} onChange={onchangeTab} destroyInactiveTabPane />
+          </Space>
+        </Content>
+      </Layout>
+    </App2Provider>
 
   )
 

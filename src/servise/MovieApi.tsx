@@ -86,6 +86,27 @@ export default class MovieApi {
     return res;
   }
 
+  async getMoviesGenres() {
+    const res = await this.getResounse('/genre/movie/list?language=en');
+    return res;
+  }
+
+  /*
+  genres
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer 28028e4e8e397305a5e8f8f77707e63e'
+  }
+};
+
+fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+  */
+
   /*
   account rated movies
   const options = {
