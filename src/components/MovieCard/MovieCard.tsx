@@ -44,14 +44,21 @@ export default function MovieCard({ movie, onChangeRate }: any) {
         (moviesGenres) => {
           console.log('MoviesGenres from Consumer', moviesGenres)
           return (
-            <Card size="small" className="movie-card">
+            <Card size="small" className="movie-card" bodyStyle={{ padding: 0 }}>
               <Space align="start">
                 <Image width={180} src={poster_path ? `${imagePath}${poster_path}` : no_poster} alt="Poster" />
                 <Space direction="vertical" align="start" size={2}>
-                  <Space direction="horizontal" align="start" size={"large"}>
+                  <Space direction="horizontal" align="start" size={"large"} style={{ width: "200px" }}>
+                    <div>
 
-                    <Title level={4} style={{ margin: 0 }}>{title}</Title>
-                    <NumberAround num={vote_average} />
+                      <Title level={4} style={{ margin: 0, marginRight: 'auto', }}>{title}</Title>
+                    </div>
+                    <Space />
+
+                    <Space align="end">
+
+                      <NumberAround num={vote_average} />
+                    </Space>
                   </Space>
                   <Text type="secondary">{release_date}</Text>
                   <Space>
