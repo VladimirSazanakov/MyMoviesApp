@@ -1,5 +1,5 @@
 .wrapper {
-  width: 1010px;
+  max-width: 1010px;
   min-height: 1147px;
   height: auto;
   margin-left: auto;
@@ -13,4 +13,8 @@
   padding: 36px;
   height: auto;
 
+}
+
+.ant-tabs-nav-wrap {
+  justify-content: center;
 }

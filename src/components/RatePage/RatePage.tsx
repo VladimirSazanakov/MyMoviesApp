@@ -26,10 +26,10 @@ export default function RatePage(props: any) {
         setMovies(res.results);
         setLoading(false);
         setError(false);
-        console.log(res.total_pages)
+        // console.log(res.total_pages)
         setTotalPages(res.total_pages * 10);
-        console.log(res);
-        console.log(props.guest_id);
+        // console.log(res);
+        // console.log(props.guest_id);
       })
       .catch((error) => {
         onError(error);
@@ -43,10 +43,10 @@ export default function RatePage(props: any) {
         setMovies(res.results);
         setLoading(false);
         setError(false);
-        console.log(res.total_pages)
+        // console.log(res.total_pages)
         setTotalPages(res.total_pages * 10);
-        console.log(res);
-        console.log(props.guest_id);
+        // console.log(res);
+        // console.log(props.guest_id);
       })
       .catch((error) => {
         onError(error);
@@ -70,7 +70,7 @@ export default function RatePage(props: any) {
   }
 
   function onChangePagination(page: number) {
-    console.log('current page', page);
+    // console.log('current page', page);
     setCurrentPage(page);
     getRatedMovies();
     setLoading(true);
@@ -92,7 +92,7 @@ export default function RatePage(props: any) {
   return (
     <Space direction="vertical" align="center">
       {error ? <ErrorIndicator /> : null}
-      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
+      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
         showSizeChanger={false} />
     </Space>

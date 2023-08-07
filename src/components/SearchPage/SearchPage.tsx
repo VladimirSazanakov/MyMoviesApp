@@ -29,7 +29,7 @@ export default function SearchPage(props: any) {
         setMovies(res.results);
         setLoading(false);
         setError(false);
-        console.log(res.total_pages)
+        // console.log(res.total_pages)
         setTotalPages(res.total_pages * 10);
       })
       .catch((error) => {
@@ -47,21 +47,21 @@ export default function SearchPage(props: any) {
   }
 
   function onError(err: Error) {
-    console.log('Error Loading', err);
+    // console.log('Error Loading', err);
     if (err)
       setError(true);
     setLoading(false);
   }
 
   function onChangePagination(page: number) {
-    console.log('current page', page);
+    // console.log('current page', page);
     setCurrentPage(page);
     getMovies(searchValue);
     setLoading(true);
   }
 
   function onChangeInput(value: string) {
-    console.log('InputValue', value);
+    // console.log('InputValue', value);
     setSearchValue(value);
   }
 
@@ -87,11 +87,13 @@ export default function SearchPage(props: any) {
     movieToMovieList();
   }, [movies]);
 
+
+
   return (
-    <Space direction="vertical" align="center">
+    <Space direction="vertical" align="center" style={{ width: '100%' }} size={'middle'}>
       <SearchInput onChangeInput={onChangeInput} />
       {error ? <ErrorIndicator /> : null}
-      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} onChangeRate={props.onChangeRate} />}
+      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
         showSizeChanger={false} />
     </Space>

@@ -19,6 +19,8 @@ export default function App2(props: any) {
   const [currentTab, setCurrentTab] = useState('Search');
   const [guestSession, setGuestSession] = useState('');
   const [moviesGenres, setMoviesGenres] = useState([]);
+  const [windowSize, setWindowSize] = useState(document.documentElement.clientWidth);
+
 
   useEffect(() => {
     const guest = movieApi.createGuestSession();
@@ -29,19 +31,27 @@ export default function App2(props: any) {
     movieApi.getMoviesGenres().then(response => {
       //console.log(response);
       setMoviesGenres(response.genres);
-      console.log(moviesGenres);
+      // console.log(moviesGenres);
     })
     // setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
+
+    const handleResize = (event: any) => {
+      setWindowSize(event.target.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
 
   }, []);
 
   function onchangeTab(key: string) {
-    console.log(key)
+    // console.log(key)
     setCurrentTab(key);
   }
 
   function onChangeRate(id: number, rateValue: number) {
-    console.log('ChangeRate', id, ' rate ', rateValue);
+    // console.log('ChangeRate', id, ' rate ', rateValue);
     movieApi.addRating(id, guestSession, rateValue).then(res => console.log(res));
   }
 
@@ -49,13 +59,13 @@ export default function App2(props: any) {
     {
       key: 'Search',
       label: 'Search',
-      children: <SearchPage onChangeRate={onChangeRate} />
+      children: <SearchPage onChangeRate={onChangeRate} windowSize={windowSize} />
 
     },
     {
       key: 'Rated',
       label: 'Rated',
-      children: <RatePage guest_id={guestSession} onChangeRate={onChangeRate} />
+      children: <RatePage guest_id={guestSession} onChangeRate={onChangeRate} windowSize={windowSize} />
 
     },
   ]
@@ -63,11 +73,9 @@ export default function App2(props: any) {
   return (
 
     <App2Provider value={moviesGenres}>
-
-      <Layout className='wrapper'>
-
+      <Layout className='wrapper' style={{ background: 'white' }}>
         <Content className='content'>
-          <Space direction="vertical" align="center">
+          <Space direction="vertical" align="center" style={{ width: '100%' }}>
             <Tabs defaultActiveKey="Search" items={items} onChange={onchangeTab} destroyInactiveTabPane />
           </Space>
         </Content>

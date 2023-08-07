@@ -16,14 +16,14 @@ export default function MovieCard({ movie, onChangeRate }: any) {
 
   const { id, title, release_date, poster_path, overview, vote_average, rating, genre_ids } = movie;
 
-  console.log(movie);
+  // console.log(movie);
   function ChangeRate(value: number) {
     // console.log(value);
     onChangeRate(value);
   }
 
   let genreArr = genre_ids.slice(0, 3);
-  console.log(genreArr);
+  // console.log(genreArr);
 
 
   // const genreButtons = genre_ids.slice(0, 3).map((el: number) => {
@@ -42,12 +42,36 @@ export default function MovieCard({ movie, onChangeRate }: any) {
     <App2Consumer>
       {
         (moviesGenres) => {
-          console.log('MoviesGenres from Consumer', moviesGenres)
+          // console.log('MoviesGenres from Consumer', moviesGenres)
           return (
-            <Card size="small" className="movie-card" bodyStyle={{ padding: 0 }}>
-              <Space align="start">
-                <Image width={180} src={poster_path ? `${imagePath}${poster_path}` : no_poster} alt="Poster" />
-                <Space direction="vertical" align="start" size={2}>
+            <Card key={id} size="small" className="movie-card" bodyStyle={{ padding: 0 }}>
+              <Space align="start" style={{}} size={8}>
+                <Image width={180} height={281} src={poster_path ? `${imagePath}${poster_path}` : no_poster} alt="Poster" />
+
+                <div className="movie-card__descriptionContainer" style={{ display: 'flex', justifyContent: 'space-between', padding: '8px', flexDirection: 'column', height: '279px' }}>
+                  <div className="movie-card__descriptionwaper">
+                    <div className="movie-card__titleContainer" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Title level={4} style={{ margin: 0, marginRight: 'auto', }}>{title}</Title>
+                      <NumberAround num={vote_average} />
+                    </div>
+                    <Text type="secondary">{release_date}</Text>
+                    <br />
+                    <Space>
+                      {genre_ids.slice(0, 3).map((el: number) => {
+                        return (
+                          <Button size="small">
+                            {moviesGenres.find((genre: any) => genre.id === el).name}
+                          </Button>
+                        )
+                      })}
+                    </Space>
+                    <br />
+                    <Text type='secondary'>{TextShortener(overview)}</Text>
+                  </div>
+                  <Rate count={10} allowHalf onChange={ChangeRate} value={rating} />
+                </div>
+
+                {/* <Space direction="vertical" align="start" size={2}>
                   <Space direction="horizontal" align="start" size={"large"} style={{ width: "200px" }}>
                     <div>
 
@@ -72,7 +96,7 @@ export default function MovieCard({ movie, onChangeRate }: any) {
                   </Space>
                   <Text type='secondary'>{TextShortener(overview)}</Text>
                   <Rate count={10} allowHalf onChange={ChangeRate} value={rating} />
-                </Space>
+                </Space> */}
               </Space>
             </Card>
           )
