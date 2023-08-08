@@ -1,0 +1,13 @@
+.NumberAround {
+  height: 30px;
+  width: 30px;
+  font-size: 12px;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  border: solid 2px red;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

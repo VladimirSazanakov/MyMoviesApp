@@ -1,13 +1,15 @@
 .movie-card {
-  width: 451px;
+  width: 455px;
   height: 279px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   font-size: 12px;
   text-align: start;
   padding: 0;
+  border-radius: 0;
 }
 
-.ant-card-body {
-  padding: 0;
+.anticon-star {
+  height: 16px;
+  width: 16px;
 }

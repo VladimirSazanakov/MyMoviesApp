@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+import App2 from './components/App2';
 
 import { ConfigProvider } from 'antd';
 import 'antd/dist/reset.css';
@@ -16,6 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         }
       }
     } />
-    <App />
+    <App2 />
   </React.StrictMode>,
 )

@@ -2,20 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { Button, Space, Layout, Spin, Pagination } from 'antd';
 
+import MovieApi from '../../servise/MovieApi';
+import MovieList from '../MovieList';
+import TextShortener from '.../../servise/TextShortener';
+import ErrorIndicator from '../ErrorIndicator';
+import HeaderTabs from '../HeaderTabs';
+
 import './App.css'
 
-import MovieApi from './servise/MovieApi';
-import MovieList from './components/MovieList';
 
 
 
-import TextShortener from './servise/TextShortener';
-import ErrorIndicator from './components/ErrorIndicator';
-import HeaderTabs from './components/HeaderTabs';
+export default function App() {
 
-
-
-function App() {
   const cardOnPage = 20;
   const [count, setCount] = useState(0)
   const [movies, setMovies] = useState([]);
@@ -73,13 +72,14 @@ function App() {
     setSearchValue(value);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const guest = movieApi.createGuestSession();
-    guest.then(response =>{ 
+    guest.then(response => {
       console.log('Guest session id = ', response.guest_session_id)
-      setGuestSession(response.guest_session_id)});
+      setGuestSession(response.guest_session_id)
+    });
 
-  },[])
+  }, [])
 
   useEffect(() => {
     setCurrentPage(1);
@@ -143,11 +143,11 @@ vote_count: 1512
       <Header className='header'>
         <HeaderTabs onChangeInput={onChangeInput} />
       </Header>
-      <Content className='content'>
+      {/* <Content className='content'>
 
-        {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
         {error ? <ErrorIndicator /> : null}
-      </Content>
+        {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} />}
+      </Content> */}
       <Footer className='footer'>
         <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
           showSizeChanger={false} />
@@ -176,5 +176,3 @@ vote_count: 1512
     </Space> */
   )
 }
-
-export default App

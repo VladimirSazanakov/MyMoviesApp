@@ -19,6 +19,8 @@ export default function SearchInput(props: any) {
   }, [inputValue])
 
   return (
-    <Input className="SearchInput" placeholder="Type to search..." value={inputValue} onChange={onChanche} />
+    <div style={{ width: '100%' }}>
+      <Input className="SearchInput" placeholder="Type to search..." value={inputValue} onChange={onChanche} style={{ width: '100%' }} />
+    </div>
   )
 }
