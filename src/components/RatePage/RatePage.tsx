@@ -7,6 +7,7 @@ import ErrorIndicator from "../ErrorIndicator";
 import MovieList from "../MovieList";
 import MovieApi from "../../servise/MovieApi";
 
+
 export default function RatePage(props: any) {
 
   const cardOnPage = 20;
@@ -16,7 +17,7 @@ export default function RatePage(props: any) {
   const [totalPages, setTotalPages] = useState(8);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [searchValue, setSearchValue] = useState('test');
+  const [reload, setRefresh] = useState(props.reload);
 
   const movieApi = new MovieApi;
 
@@ -87,12 +88,12 @@ export default function RatePage(props: any) {
   useEffect(() => {
     // getRatedMoviesAccount();
     getRatedMovies();
-  }, [])
+  }, [props])
 
   return (
     <Space direction="vertical" align="center">
-      {error ? <ErrorIndicator /> : null}
-      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} />}
+      {error ? <ErrorIndicator /> :
+        loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
         showSizeChanger={false} />
     </Space>
