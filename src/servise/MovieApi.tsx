@@ -17,16 +17,23 @@ export default class MovieApi {
   };
 
   async getResounse(url: string) {
-    // console.log(`${this._apiBase}${url}`);
-    const res = await fetch(`${this._apiBase}${url}&api_key=28028e4e8e397305a5e8f8f77707e63e`, this.optionsGet);
-    console.log(res.status);
-    // console.log(res.json());
+    console.log(`Start ${this._apiBase}${url}`);
+    try {
 
-    if (!res.ok) {
-      throw new Error(`Error to get monies api ${url}`)
+      const res = await fetch(`${this._apiBase}${url}&api_key=28028e4e8e397305a5e8f8f77707e63e`, this.optionsGet);
+      console.log('Res from Api', res);
+      return res.json()
+
+    } catch (err) {
+      throw new Error('Could no Internet' + err);
     }
 
-    return res.json()
+    // console.log(res.json());
+
+    // if (!res.ok) {
+    //   throw new Error(`Error to get monies api ${url}`)
+    // }
+
   }
 
   async getAllMovies(params: string, page: number) {
@@ -43,8 +50,8 @@ export default class MovieApi {
         accept: 'application/json'
       }
     }
-
-    const res = await fetch(`${this._apiBase}/authentication/guest_session/new?api_key=28028e4e8e397305a5e8f8f77707e63e`, optionsGet);
+    const res = await this.getResounse('/authentication/guest_session/new?api_key=28028e4e8e397305a5e8f8f77707e63e')
+    //const res = await fetch(`${this._apiBase}/authentication/guest_session/new?api_key=28028e4e8e397305a5e8f8f77707e63e`, optionsGet);
 
     // const res = await this.getResounse('/authentication/guest_session/new');
 

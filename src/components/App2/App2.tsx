@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Button, Space, Layout, Spin, Pagination } from 'antd';
+import { Button, Space, Layout, Spin, Pagination, Alert } from 'antd';
 
 import './App2.css';
 import { Tabs, TabsProps } from "antd";
@@ -20,6 +20,7 @@ export default function App2(props: any) {
   const [guestSession, setGuestSession] = useState('');
   const [moviesGenres, setMoviesGenres] = useState([]);
   const [windowSize, setWindowSize] = useState(document.documentElement.clientWidth);
+  const [error, setError] = useState(false);
 
 
   useEffect(() => {
@@ -27,23 +28,32 @@ export default function App2(props: any) {
     guest.then(response => {
       console.log('Guest session id = ', response.guest_session_id)
       setGuestSession(response.guest_session_id)
-    });
+    })
+      .catch(() => {
+        setError(true);
+      });
+
     movieApi.getMoviesGenres().then(response => {
       //console.log(response);
       setMoviesGenres(response.genres);
       // console.log(moviesGenres);
     })
+      .catch(() => {
+        setError(true);
+      })
     // setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
 
     const handleResize = (event: any) => {
       setWindowSize(event.target.innerWidth);
     };
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
 
   }, []);
+
 
   function onchangeTab(key: string) {
     // console.log(key)
@@ -59,13 +69,13 @@ export default function App2(props: any) {
     {
       key: 'Search',
       label: 'Search',
-      children: <SearchPage onChangeRate={onChangeRate} windowSize={windowSize} />
+      children: error ? <Alert message="You No Have connection to server" description="Need check you connection or turn on VPN" type="info" /> : <SearchPage onChangeRate={onChangeRate} windowSize={windowSize} />
 
     },
     {
       key: 'Rated',
       label: 'Rated',
-      children: <RatePage guest_id={guestSession} onChangeRate={onChangeRate} windowSize={windowSize} />
+      children: error ? <Alert message="You No Have connection to server" description="Need check you connection or turn on VPN" type="info" /> : <RatePage guest_id={guestSession} onChangeRate={onChangeRate} windowSize={windowSize} />
 
     },
   ]
