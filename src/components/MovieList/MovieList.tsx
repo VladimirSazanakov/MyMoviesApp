@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Col, Row, Space } from 'antd';
 
 import MovieCard from '../MovieCard';

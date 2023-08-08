@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Content } from 'antd/es/layout/layout';
 import { Space, Layout, Alert, Tabs, TabsProps } from 'antd';
@@ -11,7 +11,7 @@ import MovieApi from "../../servise/MovieApi";
 import './App2.css';
 
 
-export default function App2(props: any) {
+export default function App2() {
 
   const movieApi = new MovieApi;
 
@@ -57,7 +57,7 @@ export default function App2(props: any) {
 
   }, []);
 
-  function onchangeTab(key: string) {
+  function onchangeTab() {
     setReload(false);
     // console.log('reload ', reload)
   }

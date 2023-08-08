@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import format from "date-fns/format";
 
 import { Button, Card, Image, Rate, Space, Typography } from "antd";
@@ -63,7 +62,7 @@ export default function MovieCard({ movie, onChangeRate }: any) {
                       {genre_ids.slice(0, 3).map((el: number) => {
                         return (
                           <Button size="small">
-                            {moviesGenres.find((genre: any) => genre.id === el).name}
+                            {moviesGenres.filter((genre: any) => genre.id === el)[0]['name']}
                           </Button>
                         )
                       })}
