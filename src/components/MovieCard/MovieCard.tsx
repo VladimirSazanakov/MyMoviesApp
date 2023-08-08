@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import format from "date-fns/format";
 
 import './MovieCard.css';
 import { Button, Card, Image, Layout, Rate, Space, Typography } from "antd";
@@ -23,6 +24,8 @@ export default function MovieCard({ movie, onChangeRate }: any) {
   }
 
   let genreArr = genre_ids.slice(0, 3);
+  const date = release_date ? format(new Date(release_date), 'MMMM d, yyyy') : null;
+  console.log(date);
   // console.log(genreArr);
 
 
@@ -54,7 +57,7 @@ export default function MovieCard({ movie, onChangeRate }: any) {
                       <Title level={4} style={{ margin: 0, marginRight: 'auto', }}>{title}</Title>
                       <NumberAround num={vote_average} />
                     </div>
-                    <Text type="secondary">{release_date}</Text>
+                    <Text type="secondary">{date}</Text>
                     <br />
                     <Space>
                       {genre_ids.slice(0, 3).map((el: number) => {
@@ -68,7 +71,7 @@ export default function MovieCard({ movie, onChangeRate }: any) {
                     <br />
                     <Text type='secondary'>{TextShortener(overview)}</Text>
                   </div>
-                  <Rate count={10} allowHalf onChange={ChangeRate} value={rating} />
+                  <Rate count={10} allowHalf onChange={ChangeRate} defaultValue={rating} />
                 </div>
 
                 {/* <Space direction="vertical" align="start" size={2}>

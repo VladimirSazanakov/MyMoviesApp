@@ -25,6 +25,7 @@ export default class MovieApi {
       return res.json()
 
     } catch (err) {
+      console.log('Error From Api', err);
       throw new Error('Could no Internet' + err);
     }
 
@@ -50,8 +51,8 @@ export default class MovieApi {
         accept: 'application/json'
       }
     }
-    const res = await this.getResounse('/authentication/guest_session/new?api_key=28028e4e8e397305a5e8f8f77707e63e')
-    //const res = await fetch(`${this._apiBase}/authentication/guest_session/new?api_key=28028e4e8e397305a5e8f8f77707e63e`, optionsGet);
+    // const res = await this.getResounse('/authentication/guest_session/new/?')
+    const res = await fetch(`${this._apiBase}/authentication/guest_session/new?api_key=28028e4e8e397305a5e8f8f77707e63e`, optionsGet);
 
     // const res = await this.getResounse('/authentication/guest_session/new');
 

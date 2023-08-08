@@ -93,8 +93,8 @@ export default function SearchPage(props: any) {
     <Space direction="vertical" align="center" style={{ width: '100%' }} size={'middle'}>
       <SearchInput onChangeInput={onChangeInput} />
       {(movies.length === 0) ? <Alert message="no movies on request" description="Please type more information" type="info" /> : null}
-      {error ? <ErrorIndicator /> : null}
-      {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
+      {error ? <ErrorIndicator /> :
+        loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
         showSizeChanger={false} />
     </Space>

@@ -31,6 +31,7 @@ export default function MovieList(props: any) {
       console.log('colSpan is ', colSpan)
 
     };
+
   }, [props]);
 
 
