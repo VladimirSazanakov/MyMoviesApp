@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import MovieApi from "../../servise/MovieApi";
 
 import './SearchPage.css';
-import { Pagination, Space, Spin } from "antd";
+import { Alert, Pagination, Space, Spin } from "antd";
 import ErrorIndicator from "../ErrorIndicator";
 import MovieList from "../MovieList";
 import SearchInput from "../SearchInput";
@@ -92,6 +92,7 @@ export default function SearchPage(props: any) {
   return (
     <Space direction="vertical" align="center" style={{ width: '100%' }} size={'middle'}>
       <SearchInput onChangeInput={onChangeInput} />
+      {(movies.length === 0) ? <Alert message="no movies on request" description="Please type more information" type="info" /> : null}
       {error ? <ErrorIndicator /> : null}
       {loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
