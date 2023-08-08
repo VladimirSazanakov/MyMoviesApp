@@ -1,50 +1,47 @@
 import React, { useState, useEffect } from "react";
 
-import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Button, Space, Layout, Spin, Pagination, Alert } from 'antd';
-
-import './App2.css';
-import { Tabs, TabsProps } from "antd";
-import SearchInput from "../SearchInput";
+import { Content } from 'antd/es/layout/layout';
+import { Space, Layout, Alert, Tabs, TabsProps } from 'antd';
 import { App2Provider } from "../App2Context";
 
 import SearchPage from "../SearchPage";
 import RatePage from "../RatePage";
 import MovieApi from "../../servise/MovieApi";
 
+import './App2.css';
+
+
 export default function App2(props: any) {
 
   const movieApi = new MovieApi;
 
-  const [currentTab, setCurrentTab] = useState('Search');
   const [guestSession, setGuestSession] = useState('');
   const [moviesGenres, setMoviesGenres] = useState([]);
   const [windowSize, setWindowSize] = useState(document.documentElement.clientWidth);
   const [error, setError] = useState(false);
   const [reload, setReload] = useState(false);
 
-
   useEffect(() => {
     const guest = movieApi.createGuestSession();
     guest.then(response => {
-      console.log('Guest session id = ', response.guest_session_id)
+      // console.log('Guest session id = ', response.guest_session_id)
       setGuestSession(response.guest_session_id)
       setError(false);
     })
       .catch(() => {
         setError(true);
-        console.log('Error from App2', guest)
+        // console.log('Error from App2', guest)
       });
 
     movieApi.getMoviesGenres().then(response => {
-      console.log(response);
+      // console.log(response);
       setMoviesGenres(response.genres);
       setError(false);
-      console.log(moviesGenres);
+      // console.log(moviesGenres);
     })
       .catch(() => {
         setError(true);
-        console.log('Error from App2')
+        // console.log('Error from App2')
 
       })
     // setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
@@ -60,19 +57,16 @@ export default function App2(props: any) {
 
   }, []);
 
-
   function onchangeTab(key: string) {
-    // console.log(key)
     setReload(false);
-    console.log('reload ', reload)
-    setCurrentTab(key);
+    // console.log('reload ', reload)
   }
 
   function onChangeRate(id: number, rateValue: number) {
     // console.log('ChangeRate', id, ' rate ', rateValue);
-    movieApi.addRating(id, guestSession, rateValue).then(res => console.log(res));
+    movieApi.addRating(id, guestSession, rateValue);
     setReload(true);
-    console.log('on Cange rate', reload)
+    // console.log('on Cange rate', reload)
   }
 
   const items: TabsProps['items'] = [
@@ -101,7 +95,5 @@ export default function App2(props: any) {
         </Content>
       </Layout>
     </App2Provider>
-
   )
-
 }

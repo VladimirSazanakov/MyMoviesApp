@@ -10,36 +10,18 @@ import MovieApi from "../../servise/MovieApi";
 
 export default function RatePage(props: any) {
 
-  const cardOnPage = 20;
   const [movies, setMovies] = useState([]);
   const [moviesToList, setMoviesToList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(8);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [reload, setRefresh] = useState(props.reload);
+  const [reload, setReload] = useState(props.reload);
 
   const movieApi = new MovieApi;
 
   function getRatedMovies() {
     movieApi.getRatedMovies(props.guest_id, currentPage)
-      .then(res => {
-        setMovies(res.results);
-        setLoading(false);
-        setError(false);
-        // console.log(res.total_pages)
-        setTotalPages(res.total_pages * 10);
-        // console.log(res);
-        // console.log(props.guest_id);
-      })
-      .catch((error) => {
-        onError(error);
-      })
-    //console.log(movies);
-  }
-
-  function getRatedMoviesAccount() {
-    movieApi.getRatedMoviesAccount(currentPage)
       .then(res => {
         setMovies(res.results);
         setLoading(false);
@@ -65,9 +47,10 @@ export default function RatePage(props: any) {
 
   function onError(err: Error) {
     console.log('Error Loading', err);
-    if (err)
+    if (err) {
       setError(true);
-    setLoading(false);
+      setLoading(false);
+    }
   }
 
   function onChangePagination(page: number) {
@@ -87,15 +70,16 @@ export default function RatePage(props: any) {
 
   useEffect(() => {
     // getRatedMoviesAccount();
+    setReload(true);
     getRatedMovies();
   }, [props])
 
   return (
     <Space direction="vertical" align="center">
       {error ? <ErrorIndicator /> :
-        loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
+        loading ? <Spin tip="Loading" size='large'><div className='content' /></Spin> : <MovieList reload={reload} movies={moviesToList} windowSize={props.windowSize} onChangeRate={props.onChangeRate} />}
       <Pagination current={currentPage} onChange={onChangePagination} total={totalPages}
-        showSizeChanger={false} />
+        showSizeChanger={false} hideOnSinglePage={true} />
     </Space>
   )
 }

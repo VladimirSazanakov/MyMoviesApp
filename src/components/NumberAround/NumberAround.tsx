@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import './NumberAround.css';
-import { Color } from "antd/es/color-picker";
 
 export default function NumberAround({ num }: any) {
   num = Number(num.toFixed(1));
@@ -21,9 +20,6 @@ export default function NumberAround({ num }: any) {
   let borderColor = (num <= 3) ? rateVeryBad :
     (num <= 5) ? rateBad :
       (num <= 7) ? rateGood : rateVeryGood;
-
-
-
 
   /*
 

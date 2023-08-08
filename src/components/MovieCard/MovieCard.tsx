@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import format from "date-fns/format";
 
-import './MovieCard.css';
-import { Button, Card, Image, Layout, Rate, Space, Typography } from "antd";
+import { Button, Card, Image, Rate, Space, Typography } from "antd";
 
 import TextShortener from "../../servise/TextShortener";
 import no_poster from "../../assets/No_image_poster.png";
 import NumberAround from "../NumberAround";
-
 import { App2Consumer } from "../App2Context";
 
-const { Text, Title } = Typography;
-const imagePath = 'https://image.tmdb.org/t/p/original';
+import './MovieCard.css';
+
 
 export default function MovieCard({ movie, onChangeRate }: any) {
 
+  const imagePath = 'https://image.tmdb.org/t/p/original';
+  const { Text, Title } = Typography;
   const { id, title, release_date, poster_path, overview, vote_average, rating, genre_ids } = movie;
 
   // console.log(movie);
@@ -23,9 +23,9 @@ export default function MovieCard({ movie, onChangeRate }: any) {
     onChangeRate(value);
   }
 
-  let genreArr = genre_ids.slice(0, 3);
+  // let genreArr = genre_ids.slice(0, 3);
   const date = release_date ? format(new Date(release_date), 'MMMM d, yyyy') : null;
-  console.log(date);
+  // console.log(date);
   // console.log(genreArr);
 
 
@@ -74,32 +74,6 @@ export default function MovieCard({ movie, onChangeRate }: any) {
                   <Rate count={10} allowHalf onChange={ChangeRate} defaultValue={rating} />
                 </div>
 
-                {/* <Space direction="vertical" align="start" size={2}>
-                  <Space direction="horizontal" align="start" size={"large"} style={{ width: "200px" }}>
-                    <div>
-
-                      <Title level={4} style={{ margin: 0, marginRight: 'auto', }}>{title}</Title>
-                    </div>
-                    <Space />
-
-                    <Space align="end">
-
-                      <NumberAround num={vote_average} />
-                    </Space>
-                  </Space>
-                  <Text type="secondary">{release_date}</Text>
-                  <Space>
-                    {genre_ids.slice(0, 3).map((el: number) => {
-                      return (
-                        <Button size="small">
-                          {moviesGenres.find((genre: any) => genre.id === el).name}
-                        </Button>
-                      )
-                    })}
-                  </Space>
-                  <Text type='secondary'>{TextShortener(overview)}</Text>
-                  <Rate count={10} allowHalf onChange={ChangeRate} value={rating} />
-                </Space> */}
               </Space>
             </Card>
           )
@@ -107,17 +81,5 @@ export default function MovieCard({ movie, onChangeRate }: any) {
       }
     </App2Consumer>
 
-    /*<Layout className="movie-card">
-      <Layout className="movie-card__img-layout">
-        image
-      </Layout>
-      <Layout className="movie-card__card-info">
-        Card info
-      </Layout>
-
-    </Layout>
-
-    
-    */
   )
 }

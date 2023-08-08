@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App';
 import App2 from './components/App2';
 
 import { ConfigProvider } from 'antd';

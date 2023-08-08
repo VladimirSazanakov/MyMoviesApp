@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Space } from 'antd';
+import { Col, Row, Space } from 'antd';
 
-import { Col, Row } from 'antd';
 import MovieCard from '../MovieCard';
 
 import './MovieList.css';
@@ -15,20 +14,20 @@ export default function MovieList(props: any) {
   const [colSpan, setColSpan] = useState(12);
 
 
-  const windowInnerWidth = document.documentElement.clientWidth;
-  const pageWidth = document.documentElement.scrollWidth;
-  console.log('window inner width', windowInnerWidth);
-  console.log('pageWidth', pageWidth);
+  // const windowInnerWidth = document.documentElement.clientWidth;
+  // const pageWidth = document.documentElement.scrollWidth;
+  // console.log('window inner width', windowInnerWidth);
+  // console.log('pageWidth', pageWidth);
 
   useEffect(() => {
     setMovies(props.movies);
     setWindowSize(props.windowSize)
     if (windowSize < 1010) {
       setColSpan(24);
-      console.log('colSpan is ', colSpan)
+      // console.log('colSpan is ', colSpan)
     } else {
       setColSpan(12);
-      console.log('colSpan is ', colSpan)
+      // console.log('colSpan is ', colSpan)
 
     };
 
@@ -42,16 +41,10 @@ export default function MovieList(props: any) {
     //console.log(el);
   })
 
-
-
-
-
-
   return (
 
     <Row gutter={[36, 36]} align={'middle'} justify={'space-evenly'} wrap={true} >
       {list}
-
     </Row>
   )
 }
