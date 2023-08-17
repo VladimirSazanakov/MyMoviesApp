@@ -26,23 +26,15 @@ export default function RatePage(props: any) {
         setMovies(res.results);
         setLoading(false);
         setError(false);
-        // console.log(res.total_pages)
         setTotalPages(res.total_pages * 10);
-        // console.log(res);
-        // console.log(props.guest_id);
       })
       .catch((error) => {
         onError(error);
       })
-    //console.log(movies);
   }
 
   function movieToMovieList() {
-    // const startPosition = cardOnPage * (currentPage - 1);
-    // const newMoviesArr = movies.slice(startPosition, startPosition + cardOnPage);
-    // setMoviesToList(newMoviesArr);
     setMoviesToList(movies);
-    //console.log('movies to list', newMoviesArr);
   }
 
   function onError(err: Error) {
@@ -54,7 +46,6 @@ export default function RatePage(props: any) {
   }
 
   function onChangePagination(page: number) {
-    // console.log('current page', page);
     setCurrentPage(page);
     getRatedMovies();
     setLoading(true);
@@ -69,7 +60,6 @@ export default function RatePage(props: any) {
   }, [movies]);
 
   useEffect(() => {
-    // getRatedMoviesAccount();
     setReload(true);
     getRatedMovies();
   }, [props])

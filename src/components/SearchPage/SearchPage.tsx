@@ -36,7 +36,6 @@ export default function SearchPage(props: any) {
   }
 
   function onError(err: Error) {
-    // console.log('Error Loading', err);
     if (err) {
       setError(true);
       setLoading(false);
@@ -44,14 +43,12 @@ export default function SearchPage(props: any) {
   }
 
   function onChangePagination(page: number) {
-    // console.log('current page', page);
     setCurrentPage(page);
     getMovies(searchValue);
     setLoading(true);
   }
 
   function onChangeInput(value: string) {
-    // console.log('InputValue', value);
     setSearchValue(value);
   }
 

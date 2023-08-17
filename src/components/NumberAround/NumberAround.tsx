@@ -20,13 +20,6 @@ export default function NumberAround({ num }: any) {
     (num <= 5) ? rateBad :
       (num <= 7) ? rateGood : rateVeryGood;
 
-  /*
-
-    От 0 до 3 - #E90000
-    От 3 до 5 - #E97E00
-    От 5 до 7 - #E9D100
-    Выше 7 - #66E900
-*/
   return (
     <p className="NumberAround" style={borderColor}>{num}</p>
   )

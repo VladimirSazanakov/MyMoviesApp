@@ -16,35 +16,16 @@ export default function MovieCard({ movie, onChangeRate }: any) {
   const { Text, Title } = Typography;
   const { id, title, release_date, poster_path, overview, vote_average, rating, genre_ids } = movie;
 
-  // console.log(movie);
   function ChangeRate(value: number) {
-    // console.log(value);
     onChangeRate(value);
   }
 
-  // let genreArr = genre_ids.slice(0, 3);
   const date = release_date ? format(new Date(release_date), 'MMMM d, yyyy') : null;
-  // console.log(date);
-  // console.log(genreArr);
-
-
-  // const genreButtons = genre_ids.slice(0, 3).map((el: number) => {
-  //   return (
-  //     <Button size="small">
-  //       {moviesGenres.find((genre: any) => genre.id === el).name}
-  //     </Button>
-  //   )
-  // })
-
-
-
-
 
   return (
     <App2Consumer>
       {
         (moviesGenres) => {
-          // console.log('MoviesGenres from Consumer', moviesGenres)
           return (
             <Card key={id} size="small" className="movie-card" bodyStyle={{ padding: 0 }}>
               <Space align="start" style={{}} size={8}>

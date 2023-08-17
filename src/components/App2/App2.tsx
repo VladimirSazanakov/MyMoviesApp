@@ -24,27 +24,20 @@ export default function App2() {
   useEffect(() => {
     const guest = movieApi.createGuestSession();
     guest.then(response => {
-      // console.log('Guest session id = ', response.guest_session_id)
       setGuestSession(response.guest_session_id)
       setError(false);
     })
       .catch(() => {
         setError(true);
-        // console.log('Error from App2', guest)
       });
 
     movieApi.getMoviesGenres().then(response => {
-      // console.log(response);
       setMoviesGenres(response.genres);
       setError(false);
-      // console.log(moviesGenres);
     })
       .catch(() => {
         setError(true);
-        // console.log('Error from App2')
-
       })
-    // setGuestSession('2db3d319150d2dd1068aebd519dab0b4')
 
     const handleResize = (event: any) => {
       setWindowSize(event.target.innerWidth);
@@ -59,14 +52,11 @@ export default function App2() {
 
   function onchangeTab() {
     setReload(false);
-    // console.log('reload ', reload)
   }
 
   function onChangeRate(id: number, rateValue: number) {
-    // console.log('ChangeRate', id, ' rate ', rateValue);
     movieApi.addRating(id, guestSession, rateValue);
     setReload(true);
-    // console.log('on Cange rate', reload)
   }
 
   const items: TabsProps['items'] = [

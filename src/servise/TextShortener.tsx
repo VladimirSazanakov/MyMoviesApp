@@ -6,18 +6,13 @@ export default function TextShortener(text: string) {
     .replace('  ', ' ')
     .split(' ')
     .map(word => {
-      //console.log(length);
-      //console.log('word length', word.length, ':', word);
       if (length < maxLength) {
         length += word.length + 1;
-        //console.log("returned ", word);
         return word;
       } else {
-        //console.log('returned ""')
         return '';
       }
     })
     .join(' ');
-  //console.log(textShort);
   return textShort;
 }
